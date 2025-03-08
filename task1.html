@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        input {
+            width: 90%;
+            padding: 8px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #ffd700;
+        }
+        .error {
+            border: 2px solid red !important;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background: #ffd700;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #ffcc00;
+        }
+    </style>
+<script>
+  document.getElementById("userForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      let firstName = document.getElementById("firstName");
+      let lastName = document.getElementById("lastName");
+      let middleInitial = document.getElementById("middleInitial");
+      let age = document.getElementById("age");
+      let weight = document.getElementById("weight");
+      let valid = true;
+      firstName.classList.remove("error");
+      lastName.classList.remove("error");
+      middleInitial.classList.remove("error");
+      age.classList.remove("error");
+      weight.classList.remove("error");
+
+      if (firstName.value.trim() === "") {
+          alert("First Name is required.");
+          firstName.classList.add("error");
+          valid = false;
+      }
+      if (lastName.value.trim() === "") {
+          alert("Last Name is required.");
+          lastName.classList.add("error");
+          valid = false;
+      }
+      if (middleInitial.value.trim() === "") {
+          alert("Middle Initial is required.");
+          middleInitial.classList.add("error");
+          valid = false;
+      }
+      if (age.value === "" || isNaN(age.value) || parseInt(age.value) <= 17) {
+          alert("Age must be greater than 17.");
+          age.classList.add("error");
+          valid = false;
+      }
+      if (weight.value === "" || isNaN(weight.value) || parseInt(weight.value) < 80 || parseInt(weight.value) > 300) {
+          alert("Weight must be between 80 and 300.");
+          weight.classList.add("error");
+          valid = false;
+      }
+      if (valid) {
+          alert("Form submitted successfully!");
+          this.reset();
+      }
+  });
+</script>
+</head>
+<body>
+
+<div class="container">
+    <h2>User Information Form</h2>
+    <form id="userForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required>
+
+        <label for="middleInitial">Middle Initial:</label>
+        <input type="text" id="middleInitial" maxlength="1" required>
+
+        <label for="age">Age (must be > 17):</label>
+        <input type="number" id="age" required>
+
+        <label for="weight">Weight (80 - 300):</label>
+        <input type="number" id="weight" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff7f50, #ffcc00);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            max-height: 90vh; 
+            overflow: hidden;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-top: 8px;
+            font-size: 16px;
+            text-align: left;
+        }
+        .required {
+            color: red;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border: 2px solid #ff4500;
+        }
+        .error {
+            border: 2px solid red !important;
+        }
+        button {
+            margin-top: 12px;
+            padding: 10px;
+            width: 100%;
+            background: #ff4500;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #e63900;
+        }
+    </style>
+<script>
+  document.getElementById("shipmentForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      let fullName = document.getElementById("fullName");
+      let email = document.getElementById("email");
+      let address = document.getElementById("address");
+      let zip = document.getElementById("zip");
+      let country = document.getElementById("country");
+      let phone = document.getElementById("phone");
+      let valid = true;
+      fullName.classList.remove("error");
+      email.classList.remove("error");
+      address.classList.remove("error");
+      zip.classList.remove("error");
+      country.classList.remove("error");
+      phone.classList.remove("error");
+      if (fullName.value.trim() === "") {
+          alert("Full Name is required.");
+          fullName.classList.add("error");
+          fullName.focus();
+          valid = false;
+      } else if (!/^[A-Za-z\s]+$/.test(fullName.value.trim())) {
+          alert("Full Name must contain only letters.");
+          fullName.classList.add("error");
+          fullName.focus();
+          valid = false;
+      }
+      if (email.value.trim() === "") {
+          alert("Email is required.");
+          email.classList.add("error");
+          email.focus();
+          valid = false;
+      } else if (!/^\S+@\S+\.\S+$/.test(email.value.trim())) {
+          alert("Enter a valid Email.");
+          email.classList.add("error");
+          email.focus();
+          valid = false;
+      }
+      if (address.value.trim() === "") {
+          alert("Address is required.");
+          address.classList.add("error");
+          address.focus();
+          valid = false;
+      }
+      if (zip.value.trim() === "") {
+          alert("Zip Code is required.");
+          zip.classList.add("error");
+          zip.focus();
+          valid = false;
+      } else if (!/^\d{5,6}$/.test(zip.value.trim())) {
+          alert("Zip Code must be 5 or 6 digits.");
+          zip.classList.add("error");
+          zip.focus();
+          valid = false;
+      }
+      if (country.value === "") {
+          alert("Please select a Country.");
+          country.classList.add("error");
+          country.focus();
+          valid = false;
+      }
+      if (phone.value.trim() === "") {
+          alert("Phone Number is required.");
+          phone.classList.add("error");
+          phone.focus();
+          valid = false;
+      } else if (!/^\d{10,13}$/.test(phone.value.trim())) {
+          alert("Phone Number must be 10 to 13 digits.");
+          phone.classList.add("error");
+          phone.focus();
+          valid = false;
+      }
+      if (valid) {
+          alert("Form submitted successfully!");
+          this.reset();
+      }
+  });
+</script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Shipment Form</h2>
+    <form id="shipmentForm">
+        <label for="fullName">Full Name <span class="required">*</span>:</label>
+        <input type="text" id="fullName" required>
+
+        <label for="email">Email <span class="required">*</span>:</label>
+        <input type="email" id="email" required>
+
+        <label for="address">Address <span class="required">*</span>:</label>
+        <input type="text" id="address" required>
+
+        <label for="zip">Zip Code <span class="required">*</span>:</label>
+        <input type="text" id="zip" required>
+
+        <label for="country">Country <span class="required">*</span>:</label>
+        <select id="country" required>
+            <option value="">Select Country</option>
+            <option value="USA">USA</option>
+            <option value="UK">UK</option>
+            <option value="Canada">Canada</option>
+            <option value="India">India</option>
+            <option value="Pakistan">Pakistan</option>
+        </select>
+
+        <label for="phone">Phone Number <span class="required">*</span>:</label>
+        <input type="text" id="phone" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahria University Course Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a1931; /* Bahria University navy blue */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 420px;
+            text-align: center;
+            box-shadow: 0px 0px 12px rgba(255, 215, 0, 0.5); /* Bahria Gold */
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: #0a1931;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #0a1931;
+        }
+
+        .required {
+            color: red;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #ffd700;
+        }
+
+        .error {
+            border: 2px solid red !important;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background: #ffd700;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #0a1931;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #e6c300;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="bh.jpeg" alt="Bahria University Logo" class="logo">
+    <h2>Bahria University Course Registration</h2>
+    <form id="registrationForm">
+        <label for="regNumber">Registration Number <span class="required">*</span>:</label>
+        <input type="text" id="regNumber" placeholder="BU-XXXXX" required>
+
+        <label for="semester">Current Semester <span class="required">*</span>:</label>
+        <input type="number" id="semester" min="1" max="8" placeholder="1-8" required>
+
+        <label for="enrollNumber">Enrollment Number <span class="required">*</span>:</label>
+        <input type="text" id="enrollNumber" placeholder="Numeric (Min 5 digits)" required>
+
+        <label for="courseCode">Course Code <span class="required">*</span>:</label>
+        <input type="text" id="courseCode" placeholder="e.g., CS101" required>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let regNumber = document.getElementById("regNumber");
+        let semester = document.getElementById("semester");
+        let enrollNumber = document.getElementById("enrollNumber");
+        let courseCode = document.getElementById("courseCode");
+
+        let valid = true;
+
+        // Reset error styling
+        regNumber.classList.remove("error");
+        semester.classList.remove("error");
+        enrollNumber.classList.remove("error");
+        courseCode.classList.remove("error");
+
+        // Registration Number (Format: BU-XXXXX)
+        let regPattern = /^BU-\d{5}$/;
+        if (!regPattern.test(regNumber.value.trim())) {
+            alert("Invalid Registration Number. Format should be: BU-XXXXX (5 digits).");
+            regNumber.classList.add("error");
+            regNumber.focus();
+            valid = false;
+        }
+
+        // Semester (Range: 1-8)
+        if (semester.value < 1 || semester.value > 8) {
+            alert("Semester must be between 1 and 8.");
+            semester.classList.add("error");
+            semester.focus();
+            valid = false;
+        }
+
+        // Enrollment Number (Minimum 5 digits, numeric only)
+        let enrollPattern = /^\d{5,}$/;
+        if (!enrollPattern.test(enrollNumber.value.trim())) {
+            alert("Enrollment Number must be at least 5 digits.");
+            enrollNumber.classList.add("error");
+            enrollNumber.focus();
+            valid = false;
+        }
+
+        // Course Code (Format: e.g., CS101)
+        let coursePattern = /^[A-Za-z]{2,4}\d{3}$/;
+        if (!coursePattern.test(courseCode.value.trim())) {
+            alert("Invalid Course Code. Example format: CS101.");
+            courseCode.classList.add("error");
+            courseCode.focus();
+            valid = false;
+        }
+
+        if (valid) {
+            alert("✅ Registration Successful!\n\nThank you for registering at Bahria University.");
+            this.reset(); // Reset form fields after successful submission
+        }
+    });
+</script>
+
+</body>
+</html>
